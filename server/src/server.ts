@@ -1,11 +1,11 @@
-import express from 'express'
-import mongoose from "mongoose";
-import cookieParser from 'cookie-parser'; 
+import express from 'express';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import cors from 'cors';
 
-const app = express()
-const port = 3000;
+const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -13,32 +13,36 @@ app.use(express.static('public'));
 app.use(cookieParser());
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
-
-//DB
-const dbUrl = process.env.DB_URL;
-const database = 'fs-jun24';
-
-//connection
-mongoose.connect(`${dbUrl}/${database}`).then(()=>{
-    console.info("DB connected")
-}).catch((err)=>{
-    console.error(err)
+  res.send('Hello World!');
 });
 
-//routes
-import clientsRouter from './routes/clients/clientRoutes';
-app.use("/api/clients", clientsRouter);
-import productsRouter from './routes/products/productRoute';
-app.use("/api/products", productsRouter);
-import commentsRouter from './routes/comments/commentsRoute';
-app.use("/api/comments", commentsRouter);
-import Purchase from "./routes/purchase/purchaseRouter";
-app.use("/api/purchase", Purchase);
-import todoRouter from './routes/todo/todoRoutes';
-app.use("/api/todo", todoRouter);
+// DB Connection
+const dbUrl = process.env.DB_URL;
+const database = 'Heros-App';
+
+if (!dbUrl) {
+  console.error('Error: DB_URL is not defined in environment variables.');
+  process.exit(1);
+}
+
+mongoose
+  .connect(`${dbUrl}/${database}`)
+  .then(() => {
+    console.info('DB connected');
+  })
+  .catch((err) => {
+    console.error('DB connection error:', err);
+  });
+
+// Routes
+import UsersRouter from './routes/users/usersRoutes';
+import HerosRouter from './routes/heros/herosRoutes';
+import RatingRouter from './routes/rating/ratingRoute';
+
+app.use('/api/users', UsersRouter);
+app.use('/api/heros', HerosRouter);
+app.use('/api/ratings', RatingRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server is running on port ${port}`);
+});
