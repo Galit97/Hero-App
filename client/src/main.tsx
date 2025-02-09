@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import App from './App';
-import Register from './pages/Register';
-import Login from './pages/Login';
+import Register from './pages/Register/Register';
+import Login from './pages/LogIn/Login';
 import Dashboard from './pages/Dashboard';
 import './index.css';
 
