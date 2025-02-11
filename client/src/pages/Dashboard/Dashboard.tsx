@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Form from "../Components/Form/Form";
+import { useAppVM } from "./DashboardVM";
+import Card from "../Components/Card/Card";
+import FormTitle from "../Components/FormTitle/FormTitle";
 
 function Dashboard() {
-  const [heroes, setHeroes] = useState([
-    { name: "Hero1", role: "Warrior", imageUrl: "", rating: 5 },
-  ]);
+const { heros } = useAppVM();
+
   const [showForm, setShowForm] = useState(false);
   const [showAddButton, setshowAddButton] = useState(true);
 
@@ -38,7 +40,7 @@ function Dashboard() {
   };
   return (
     <div>
-      <h2>Hello, user</h2>
+      <FormTitle title="Hello User"></FormTitle>
       {showAddButton && (
         <button onClick={handleToggleForm}>Add new hero</button>
       )}
@@ -47,12 +49,8 @@ function Dashboard() {
       )}
 
       <div className="hero-list">
-        {heroes.map((hero, index) => (
-          <div key={index} className="hero-card">
-            <p>{hero.name}</p>
-            <p>{hero.role}</p>
-            <p>{hero.rating}</p>
-          </div>
+        {heros.map((hero, index) => (
+          <Card key={index} name={hero.name} imageUrl={hero.imageUrl} role={hero.role} rating={hero.rating}></Card>
         ))}
       </div>
     </div>

@@ -9,7 +9,7 @@ function Register() {
 
   const loginFields = [
     { name: "email", type: "email" ,placeholder: "Email"},
-    { name: "Full Name", type: "text" ,placeholder: "Email"},
+    { name: "Full Name", type: "text" ,placeholder: "full name"},
     { name: "password", type: "password", placeholder: "Password"},
   ];
   const handleLogin = (data: Record<string, string>) => {

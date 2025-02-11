@@ -4,7 +4,7 @@ export function useAppVM() {
     const [heros, setHeroes] = useState<Hero[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/heros/add-hero')
+        fetch('http://localhost:3000/api/heros/get-hero')
             .then((res) => res.json())
             .then((data) => {
                 const { heros, message, error } = data;
