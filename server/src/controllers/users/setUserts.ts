@@ -1,7 +1,7 @@
 import { UserModel } from "../../model/users/UserModel";
 import jwt from "jwt-simple";
 import bcrypt from "bcrypt";
-const saltRounds = process.env.SALT_BCRYPT || 10;
+const saltRounds = Number(process.env.SALT_BCRYPT) || 10;
 
 export const secret = process.env.SECRET_JWT || "secret";
 

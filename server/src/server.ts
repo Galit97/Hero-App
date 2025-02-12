@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import 'dotenv/config';
 import cors from 'cors';
+import dotenv from "dotenv";
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
