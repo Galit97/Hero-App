@@ -42,9 +42,9 @@ export async function addUser(req: any, res: any) {
 
 export async function register(req: any, res: any) {
     try {
-        const { fullName, email, password, phone } = req.body;
+        const { fullName, email, password } = req.body;
 
-        if (!fullName ||  !email || !password || !phone) {
+        if (!fullName ||  !email || !password ) {
             throw new Error('Please fill all fields');
         }
 
@@ -57,7 +57,6 @@ export async function register(req: any, res: any) {
             fullName,
             email,
             password: hashedPassword,
-            phone
         })
 
         return res.status(201).send({ message: "User registered successfully" });
