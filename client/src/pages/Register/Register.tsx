@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from '../Components/Form/Form';
 import FormTitle from '../Components/FormTitle/FormTitle';
+import { useAppVM } from './RegisterVM';
+
 
 function Register() {
+  const { registerUser, error } = useAppVM();
   const [formData, setFormData] = useState({ email: '', fullName: '', password: '' });
   const navigate = useNavigate();
 
@@ -13,8 +16,22 @@ function Register() {
     { name: "password", type: "password", placeholder: "Password"},
   ];
   const handleLogin = (data: Record<string, string>) => {
-    console.log(data);
-    navigate('/dashboard');
+    async (data: Record<string, string>) => {
+      console.log("Form Data:", data);
+  
+      
+      const response = await registerUser({
+        email: data.email,
+        fullName: data.fullName,
+        password: data.password,
+      });
+  
+      if (response.success) {
+        alert(response.message);
+        navigate('/login'); 
+      } else {
+        console.error(response.error);
+      }
   };
 
 
@@ -23,15 +40,7 @@ function Register() {
       <FormTitle title='Register'></FormTitle>
       <Form fields={loginFields} buttonLabel='Submit' onSubmit={handleLogin}></Form>
     </div>
-//     <div className={styles.registerContainer}> 
-//     <form className={styles.registerForm} onSubmit={handleSubmit}>
-//     <FormTitle title="Register" navRoute="/"></FormTitle>
-//         <input type="email" placeholder="Email" required onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
-//         <input type="text" placeholder="Full Name" required onChange={(e) => setFormData({ ...formData, fullName: e.target.value })} />
-//         <input type="password" placeholder="Password" required onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
-//         <button type="submit">Register</button>
-//     </form>
-// </div>
   );
+}
 }
 export default Register;
