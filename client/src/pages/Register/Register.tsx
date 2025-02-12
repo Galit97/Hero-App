@@ -16,19 +16,24 @@ function Register() {
   const handleLogin = async (data: Record<string, string>) => {
     console.log("Form Data:", data);
 
-    const response = await registerUser({
-      email: data.email,
-      fullName: data.fullName,
-      password: data.password,
-    });
+    try {
+        const response = await registerUser({
+            email: data.email,
+            fullName: data.fullName,
+            password: data.password,
+        });
 
-    if (response.success) {
-      alert(response.message);
-      navigate('/login');
-    } else {
-      console.error(response.error);
+        if (response.success) {
+            alert(response.message);
+            navigate('/login'); 
+        } else {
+            console.error(response.error);
+        }
+    } catch (error) {
+        console.error("Registration Error:", error);
     }
-  };
+};
+
 
   return (
     <div>
