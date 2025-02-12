@@ -15,6 +15,7 @@ export function useAppVM() {
             });
 
             const result = await response.json();
+            console.log();
 
             if (!response.ok) {
                 throw new Error(result.error || 'Registration failed');
